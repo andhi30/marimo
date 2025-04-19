@@ -115,10 +115,12 @@ def _():
 
 
 @app.cell
-def _(pd):
+def _():
+    import pandas as pd
+
     data = pd.read_feather("notebooks/public/transport_booking.feather")
     data.head()
-    return (data,)
+    return data, pd
 
 
 @app.cell
@@ -171,14 +173,14 @@ def _(data, pd):
             # Driver pickup location
             folium.Marker(
                 location=[row['driver_pickup_latitude'], row['driver_pickup_longitude']],
-                popup=f"Driver",
+                popup="Driver",
                 icon=folium.Icon(color='green', icon='car')
             ).add_to(m)
 
             # AOI adjusted booking pickup location
             folium.Marker(
                 location=[row['aoi_adjusted_booking_pickup_latitude'], row['aoi_adjusted_booking_pickup_longitude']],
-                popup=f"AOI Adjusted",
+                popup="AOI Adjusted",
                 icon=folium.Icon(color='red', icon='info-sign')
             ).add_to(m)
 
